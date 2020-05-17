@@ -10,7 +10,7 @@ class BasicBloc extends Bloc<BasicEvent, BasicState> {
 
   @override
   Stream<BasicState> mapEventToState(BasicEvent event) async* {
-    print(event == BasicEvent.increment);
+    print( BasicState(0) ==  BasicState(0));
     switch (event) {
       case BasicEvent.increment:
         yield* mapIncrementTostate(event);

@@ -5,7 +5,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:bloc_sample/auth/auth_bloc.dart';
 import 'package:bloc_sample/login/login_repository.dart';
-import 'package:flutter/foundation.dart';
 
 import 'index.dart';
 
