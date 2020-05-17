@@ -54,6 +54,7 @@ class _BasicSampleState extends State<BasicSample> {
             child: FloatingActionButton(
               onPressed: () => bloc.add(BasicEvent.decrement),
               tooltip: 'Decrement',
+              heroTag:  'Decrement',
               child: Icon(Icons.maximize),
             ),
           ),
@@ -63,6 +64,7 @@ class _BasicSampleState extends State<BasicSample> {
             child: FloatingActionButton(
               onPressed: () => bloc.add(BasicEvent.reset),
               tooltip: 'Reset',
+              heroTag: 'Reset',
               child: Icon(Icons.restore),
             ),
           ),

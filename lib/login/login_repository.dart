@@ -8,7 +8,9 @@ class LoginRepository {
 
   LoginRepository(this.bloc);
 
-  void login(String email, String password) {
+  void login(String email, String password) async{
+    // mock api delay
+   await Future.delayed(Duration(seconds: 1));
     if (email == 'test@test.com' && password == 'Password')
       bloc.add(LoginSuccesEvent(User(
           email: email,

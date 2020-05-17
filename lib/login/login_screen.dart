@@ -66,65 +66,77 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc, AuthState>(
-        bloc: Auth,
-        listener: (context, state) {
-          if (state is Authenticated)
-            Navigator.of(context).pushReplacementNamed(BasicSample.routeName);
-        },
-        child: BlocListener<LoginBloc, LoginState>(
-            bloc: _loginBloc,
-            listener: (context, state) {
-              if (state?.message != null && state?.message != '')
-                showDialog(
-                    context: context,
-                    barrierDismissible: true,
-                    builder: (c) => Dialog(child: Text(state.message)));
-            },
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  SizedBox(height: 70),
-                  BlocBuilder<FormBloc, MyFormState>(
-                    bloc: _formBloc,
-                    builder: (context, state) {
-                      return TextFormField(
-                          controller: _emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          focusNode: _emailNode,
-                          decoration: InputDecoration(
-                              hintText: 'Please Ennter your email',
-                              labelText: 'Email',
-                              icon: Icon(Icons.email)));
-                    },
+    return Material(
+          child: BlocListener<AuthBloc, AuthState>(
+          bloc: Auth,
+          listener: (context, state) {
+            if (state is Authenticated)
+              Navigator.of(context).pushReplacementNamed(BasicSample.routeName);
+          },
+          child: BlocListener<LoginBloc, LoginState>(
+              bloc: _loginBloc,
+              listener: (context, state) {
+                if (state?.message != null && state?.message != '')
+                  showDialog(
+                      context: context,
+                      barrierDismissible: true,
+                      builder: (c) => AlertDialog(content: Text(state.message)));
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 70),
+                      BlocBuilder<FormBloc, MyFormState>(
+                        bloc: _formBloc,
+                        builder: (context, state) {
+                          return TextFormField(
+                              controller: _emailController,
+                              keyboardType: TextInputType.emailAddress,
+                              focusNode: _emailNode,
+                              decoration: InputDecoration(
+                                  hintText: 'Please Ennter your email',
+                                  labelText: 'Email',
+                                  icon: Icon(Icons.email)));
+                        },
+                      ),
+                      BlocBuilder<FormBloc, MyFormState>(
+                        bloc: _formBloc,
+                        builder: (context, state) {
+                          return TextFormField(
+                            controller: _passwordController,
+                            focusNode: _passwordNode,
+                            decoration: InputDecoration(
+                              hintText: 'Please Ennter your Password',
+                              labelText: 'Password',
+                              icon: Icon(Icons.lock),
+                            ),
+                          );
+                        },
+                      ),
+                      SizedBox(height: 20),
+                      BlocBuilder<LoginBloc, LoginState>(
+                          bloc: _loginBloc,
+                          builder: (context, currentState) =>  (currentState is LoadingLoginState)?
+                          SizedBox.fromSize(
+                            size: Size.square(30),
+                            child: CircularProgressIndicator(strokeWidth: 1.5,))
+                         : FlatButton(
+                            color: Theme.of(context).primaryColor,
+                              onPressed: _loginPressed, child: Text('LOGIN'))),
+                      SizedBox(height: 20),
+                    ],
                   ),
-                  BlocBuilder<FormBloc, MyFormState>(
-                    bloc: _formBloc,
-                    builder: (context, state) {
-                      return TextFormField(
-                        controller: _passwordController,
-                        focusNode: _passwordNode,
-                        decoration: InputDecoration(
-                          hintText: 'Please Ennter your Password',
-                          labelText: 'Password',
-                          icon: Icon(Icons.lock),
-                        ),
-                      );
-                    },
-                  ),
-                  BlocBuilder<LoginBloc, LoginState>(
-                      bloc: _loginBloc,
-                      builder: (context, currentState) => FlatButton(
-                          onPressed: _loginPressed, child: Text('LOGIN'))),
-                  SizedBox(height: 20),
-                ],
-              ),
-            )
+                ),
+              )
 
-            // SizedBox(height: 40),
+              // SizedBox(height: 40),
 
-            ));
+              )),
+    );
   }
 
   void _loginPressed() {

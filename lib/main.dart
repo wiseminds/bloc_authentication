@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         routes: <String, WidgetBuilder>{
           BasicSample.routeName: (BuildContext context) => BasicSample(),
           LoginScreen.routeName: (BuildContext context) => LoginScreen(),
-          '/': (BuildContext context) => BasicSample(),
+          '/': (BuildContext context) => LoginScreen(),
         },
       ),
     );
