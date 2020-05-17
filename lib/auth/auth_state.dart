@@ -35,13 +35,3 @@ class UnAuthenticated extends AuthState {
   String toString() => 'UnAuthenticated';
 }
 
-/// user is logged in but has valid link but needs to signup
-class SignUpRequired extends AuthState {
-  final String email;
-
-  SignUpRequired(String token, this.email) : super(token, null);
-  @override
-  List<Object> get props => [];
-  @override
-  String toString() => 'UnAuthenticated';
-}
