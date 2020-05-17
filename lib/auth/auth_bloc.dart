@@ -34,13 +34,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       String usr = await _secureStore.getString(PrefKeys.user);
       String token = await _secureStore.getString(PrefKeys.token);
       final user = usr == null ? null : User.fromJson(json.decode(usr));
+      print(token);
+      print(usr);
+      print(user);
       if (user != null && token != null)
         yield Authenticated(token, user);
       else
         yield UnAuthenticated();
     } else if (event is LoggedIn) {
-      yield Authenticated(state.token, event.user);
+      yield Authenticated('state.token', event.user);
       _secureStore.setString(PrefKeys.user, json.encode(event.user.toJson()));
+      _secureStore.setString(PrefKeys.token, 'state.token');
     } else if (event is UpdateToken) {
       yield Authenticated(event.token, state.user);
       _secureStore.setString(PrefKeys.token, event.token);

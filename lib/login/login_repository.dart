@@ -15,7 +15,6 @@ class LoginRepository {
       bloc.add(LoginSuccesEvent(User(
           email: email,
           name: 'Test User',
-          token: 'auth_token',
           image:
               'https://keenthemes.com/preview/metronic/theme/assets/pages/media/profile/people19.png')));
     else

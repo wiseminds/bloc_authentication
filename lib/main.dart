@@ -1,4 +1,5 @@
 import 'package:bloc_sample/basic/basic_sample.dart';
+import 'package:bloc_sample/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         routes: <String, WidgetBuilder>{
           BasicSample.routeName: (BuildContext context) => BasicSample(),
           LoginScreen.routeName: (BuildContext context) => LoginScreen(),
-          '/': (BuildContext context) => LoginScreen(),
+          '/': (BuildContext context) => SplashScreen(),
         },
       ),
     );

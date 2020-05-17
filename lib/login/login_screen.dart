@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Material(
-          child: BlocListener<AuthBloc, AuthState>(
+      child: BlocListener<AuthBloc, AuthState>(
           bloc: Auth,
           listener: (context, state) {
             if (state is Authenticated)
@@ -80,7 +80,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   showDialog(
                       context: context,
                       barrierDismissible: true,
-                      builder: (c) => AlertDialog(content: Text(state.message)));
+                      builder: (c) =>
+                          AlertDialog(content: Text(state.message)));
               },
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -97,6 +98,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               controller: _emailController,
                               keyboardType: TextInputType.emailAddress,
                               focusNode: _emailNode,
+                              onFieldSubmitted: (value) {
+                                _emailNode.unfocus();
+                                _passwordNode.requestFocus();
+                              },
                               decoration: InputDecoration(
                                   hintText: 'Please Ennter your email',
                                   labelText: 'Email',
@@ -109,6 +114,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           return TextFormField(
                             controller: _passwordController,
                             focusNode: _passwordNode,
+                            onFieldSubmitted: (value) {
+                              _emailNode.unfocus();
+                              _passwordNode.unfocus();
+                              _loginPressed();
+                            },
                             decoration: InputDecoration(
                               hintText: 'Please Ennter your Password',
                               labelText: 'Password',
@@ -120,13 +130,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(height: 20),
                       BlocBuilder<LoginBloc, LoginState>(
                           bloc: _loginBloc,
-                          builder: (context, currentState) =>  (currentState is LoadingLoginState)?
-                          SizedBox.fromSize(
-                            size: Size.square(30),
-                            child: CircularProgressIndicator(strokeWidth: 1.5,))
-                         : FlatButton(
-                            color: Theme.of(context).primaryColor,
-                              onPressed: _loginPressed, child: Text('LOGIN'))),
+                          builder: (context, currentState) =>
+                              (currentState is LoadingLoginState)
+                                  ? SizedBox.fromSize(
+                                      size: Size.square(30),
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 1.5,
+                                      ))
+                                  : FlatButton(
+                                      color: Theme.of(context).primaryColor,
+                                      onPressed: _loginPressed,
+                                      child: Text('LOGIN'))),
                       SizedBox(height: 20),
                     ],
                   ),

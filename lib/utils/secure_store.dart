@@ -7,7 +7,7 @@ class SecureStore {
 
   SecureStore._(): storage = FlutterSecureStorage();
 
-  void setString(String value, String key) async =>
+  void setString(String key, String value ) async =>
       await storage.write(key: key, value: value);
 
   Future<String> getString(String key) async =>

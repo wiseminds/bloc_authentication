@@ -4,11 +4,9 @@ class User {
   final String email;
   final String image;
 
-  // Auth token
-  final String token;
+
 
   User({
-    this.token,
     this.image,
     this.name,
     this.email,
@@ -16,7 +14,6 @@ class User {
   User copyWith({String name, String email, String token, String image}) =>
       User(
           email: email ?? this.email,
-          token: token ?? this.token,
           image: image ?? this.image,
           name: name ?? this.name);
 
@@ -26,7 +23,6 @@ class User {
     name: json['name'] as String,
     email: json['email'] as String,
     image: json['image'] as String,
-    token: json['token'] as String,
   );
 
 
@@ -34,6 +30,5 @@ class User {
       'name': this.name,
       'email': this.email,
       'image': this.image,
-      'token': this.token
     };
 }
